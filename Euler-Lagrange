@@ -1,0 +1,36 @@
+"""
+Título: Aplicação da Equação de Euler-Lagrange usando SymPy
+Autor: [Seu Nome]
+Data: 20 de junho de 2024
+Descrição: Este código aplica a equação de Euler-Lagrange para um sistema físico,
+          especificamente um oscilador harmônico simples, utilizando a biblioteca SymPy.
+          O código gera a equação diferencial de movimento do sistema.
+"""
+
+import sympy as sp
+
+# Definir as variáveis simbólicas
+t = sp.Symbol('t')  # tempo
+q = sp.Function('q')(t)  # função q(t)
+q_dot = q.diff(t)  # derivada de q(t) em relação a t
+
+# Definir a Lagrangiana do sistema (exemplo: oscilador harmônico)
+m = sp.Symbol('m')  # massa
+k = sp.Symbol('k')  # constante da mola
+L = (1/2) * m * q_dot**2 - (1/2) * k * q**2  # Lagrangiana: L = T - V
+
+# Aplicar a equação de Euler-Lagrange
+# Derivada parcial da Lagrangiana em relação a q_dot (velocidade)
+dL_dq_dot = sp.diff(L, q_dot)
+
+# Derivada temporal de dL_dq_dot
+d_dt_dL_dq_dot = sp.diff(dL_dq_dot, t)
+
+# Derivada parcial da Lagrangiana em relação a q (posição)
+dL_dq = sp.diff(L, q)
+
+# Equação de Euler-Lagrange
+euler_lagrange_eq = sp.Eq(d_dt_dL_dq_dot - dL_dq, 0)
+
+# Exibir a equação resultante
+sp.pprint(euler_lagrange_eq)
